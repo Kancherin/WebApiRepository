@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiRepository.Api.Models;
+using WebApiRepository.Api.Repository;
 
 namespace WebApiRepository.Api
 {
@@ -34,7 +35,9 @@ namespace WebApiRepository.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiRepository.Api", Version = "v1" });
             });
-            services.AddDbContext<ApplicationDBContext>(dbContextOption => dbContextOption.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDBContext>(
+                dbContextOption => dbContextOption.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
